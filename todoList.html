@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aplicativo web com o objetivo de anotar informações!">
+    <meta name="keywords"
+        content="Aplicativo,crud,todo list, lista de tarefas, lista de compras, localStorage,programação">
+    <meta name="author" content="Daniel Lopes Bemfica - estudante de Dev fullStack">
+    <link rel="stylesheet" href="./css/todoStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <title>Minha lista de anotações</title>
+</head>
+
+<body>
+    <main class="container">
+        <section class="content">
+            <header class="titulo">
+                <h1>Anotações</h1>
+            </header>
+            <section class="entrada">
+                <input type="text" id="taskInput" placeholder="Anote aqui!!!">
+                <i class="fa-solid fa-feather" style="color: #1f5a29; font-size:1.6rem;" onclick="addTask()"></i>
+            </section>
+            <audio src="./sounds/escrevendo.mp3" id="som1"></audio>
+            <audio src="./sounds/editando.mp3" id="som2"></audio>
+            <audio src="./sounds/lixeira.mp3" id="som3"></audio>
+            <section class="folha">
+                <ul id="taskList"></ul>
+            </section>
+        </section>
+    </main>
+    <script src="./js/todoIndex.js"></script>
+</body>
+
+</html>
