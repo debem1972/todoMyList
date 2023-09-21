@@ -1,5 +1,106 @@
+@font-face {
+    font-family: "escribe";
+    src: url("../fontes/Little\ days.ttf") format("truetype"), url("../fontes/Little\ Days\ Alt.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@import "./variaveis";
+
+
+@media screen and (max-width: 768px) {
+    .container {
+        border: 3px solid $betume;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .titulo {
+        font-size: 2rem;
+        text-shadow: 1px 1px 2px $rato;
+    }
+
+    ul li {
+        font-size: 1.4rem;
+    }
+
+}
+
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+
+.container {
+    display: flex;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+}
+
+.content {
+    background-color: $oldPaper;
+    width: 100%;
+    font-family: "escribe";
+    font-style: normal;
+    font-weight: bold;
+    margin: 0 auto;
+    margin-bottom: none;
+    text-align: center;
+}
+
+.titulo {
+    margin-top: 20px;
+    font-size: 1.6rem;
+}
+
+#taskInput {
+    border: none;
+    border-radius: 5px;
+    margin-top: 30px;
+    width: 275px;
+    height: 40px;
+    box-shadow: 2px 2px 8px $betume;
+    font-size: 18px;
+    padding-left: 10px;
+    font-weight: bold;
+    outline: none;
+}
+
+
+
+@import "./folhaConfig";
+
+
+
+
+
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 5px 20px;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: $azulCaneta;
+    line-height: 35px;
+}
+
+.task-done {
+    text-decoration: line-through;
+}
+
+.edit-icon,
+.delete-icon {
+    margin-left: 10px;
+    cursor: pointer;
 }

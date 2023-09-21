@@ -1,0 +1,14 @@
+.folha {
+    /*border: 2px solid $sangue;*/
+    border-radius: 8px;
+    padding: 2px;
+    margin: 30px auto;
+    width: 92vw;
+    height: 100vh;
+    text-align: justify;
+    background-image: url(../img/folhaBack.jpeg);
+    background-size: cover;
+    background-repeat: repeat;
+    overflow: auto;
+    box-shadow: 8px 8px 15px $betume;
+}
