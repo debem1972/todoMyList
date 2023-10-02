@@ -123,6 +123,7 @@ li {
   font-weight: bold;
   color: #5a56bf;
   line-height: 35px;
+  letter-spacing: normal;
 }
 
 .task-done {
