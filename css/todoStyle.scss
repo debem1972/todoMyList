@@ -51,6 +51,10 @@
 }
 
 .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: $oldPaper;
     width: 100%;
     font-family: "escribe";
@@ -59,6 +63,7 @@
     margin: 0 auto;
     margin-bottom: none;
     text-align: center;
+    height: 100%;
 }
 
 .titulo {
