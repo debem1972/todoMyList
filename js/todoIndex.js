@@ -1,3 +1,20 @@
+//Chamando o video de ajuda
+const chamaAjuda = document.querySelector('#callHelp');
+const divAjuda = document.querySelector('.iframe');
+
+chamaAjuda.addEventListener('click', function () {
+    if (divAjuda.style.display === 'block') {
+        divAjuda.style.display = 'none';
+    } else {
+        divAjuda.style.display = 'block';
+        divAjuda.style.animation = "viewHelp 1s";
+    }
+
+    // Salvar no localStorage
+    saveTasksToLocalStorage();
+});
+
+
 // Função para adicionar uma nova tarefa
 function addTask() {
     const taskInput = document.getElementById("taskInput");
