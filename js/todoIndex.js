@@ -121,9 +121,22 @@ function editTask(editIcon) {
 // Função para excluir uma tarefa
 function deleteTask(deleteIcon) {
     const li = deleteIcon.parentElement;
+    const span = li.querySelector("span");
+
+    // Verifica se a tarefa está favoritada no momento da exclusão
+    const isFavorite = span.innerText.includes("(fav)");
+
+    // Confirmação de exclusão com base na condição de favoritar
+    if (isFavorite) {
+        const confirmDelete = confirm("Esta tarefa está favoritada. Deseja realmente deletá-la?");
+        if (!confirmDelete) {
+            return; // Se o usuário não confirmar, não exclua a tarefa.
+        }
+    }
+
     li.remove();
 
-    //Reproduzir som ao deletar
+    // Reproduzir som ao deletar
     const audio3 = document.querySelector('#som3');
     audio3.play();
 
