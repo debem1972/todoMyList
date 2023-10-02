@@ -66,6 +66,38 @@
     font-size: 1.6rem;
 }
 
+#callHelp:active {
+    transition: all 0.3s ease;
+    animation: helpEfect 0.3s;
+}
+
+#peninha:active {
+    transition: all 0.3s ease;
+    animation: helpEfect 0.3s;
+
+}
+
+
+
+.iframe {
+    display: none;
+    position: absolute;
+    width: 18rem;
+    height: 32rem;
+    /*top: 8rem;
+    left: 2.3rem;*/
+    margin: 3rem auto;
+    /*border: 3px solid black;*/
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px black;
+    transition: all 0.8s ease;
+    z-index: 9999;
+}
+
+#video {
+    border-radius: 8px;
+}
+
 #taskInput {
     border: none;
     border-radius: 5px;
