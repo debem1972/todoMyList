@@ -56,6 +56,43 @@ function addTask() {
 
 //----------------------------------------------------
 
+// Função para alternar entre favoritar e não favoritar a tarefa
+function toggleFavorite(starIcon) {
+    const li = starIcon.parentElement;
+    li.classList.toggle('favorite');
+    if (li.classList.contains('favorite')) {
+        starIcon.style.color = "#1f5a29";
+        addFavoriteText(li);
+    } else {
+        starIcon.style.color = 'gray';
+        removeFavoriteText(li);
+    }
+
+    // Salvar no localStorage com base nas classes "favorite"
+    saveTasksToLocalStorage();
+}
+
+
+// Função para adicionar o texto "(fav)" ao texto da tarefa
+function addFavoriteText(li) {
+    const span = li.querySelector("span");
+    if (span) {
+        span.innerText = span.innerText.replace(" (fav)", "") + " (fav)";
+    }
+}
+
+// Função para remover o texto "(fav)" do texto da tarefa
+function removeFavoriteText(li) {
+    const span = li.querySelector("span");
+    if (span) {
+        span.innerText = span.innerText.replace(" (fav)", "");
+    }
+}
+
+//--------------------------------------------------------------------------
+
+
+
 
 // Função para editar uma tarefa
 function editTask(editIcon) {
