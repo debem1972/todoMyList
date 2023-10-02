@@ -151,11 +151,23 @@ function toggleTaskDone(task) {
     const spanElement = task.querySelector("span");
     if (spanElement && event.target === spanElement) {
         spanElement.classList.toggle("task-done");
+
+
+        // Adicionar ou remover o marcador " (concluída)" no texto da tarefa
+        const taskText = spanElement.innerText;
+        if (spanElement.classList.contains("task-done")) {
+            spanElement.innerText = taskText + " (concluída)";
+        } else {
+            spanElement.innerText = taskText.replace(" (concluída)", "");
+        }
+
+        // Salvar no localStorage após alterar estado da tarefa
+        saveTasksToLocalStorage();
+
     }
 
-    // Salvar no localStorage
-    saveTasksToLocalStorage();
 }
+
 
 
 //-------------------------------------------------------
