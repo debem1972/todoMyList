@@ -1,3 +1,20 @@
+//Chamando o video de ajuda
+const chamaAjuda = document.querySelector('#callHelp');
+const divAjuda = document.querySelector('.iframe');
+
+chamaAjuda.addEventListener('click', function () {
+    if (divAjuda.style.display === 'block') {
+        divAjuda.style.display = 'none';
+    } else {
+        divAjuda.style.display = 'block';
+        divAjuda.style.animation = "viewHelp 1s";
+    }
+
+    // Salvar no localStorage
+    saveTasksToLocalStorage();
+});
+
+
 // Função para adicionar uma nova tarefa
 function addTask() {
     const taskInput = document.getElementById("taskInput");
@@ -15,7 +32,8 @@ function addTask() {
 
         li.innerHTML = `<span>${taskText}</span> 
         <i class="fa-solid fa-pen-to-square edit-icon" style="color: #1f5a29;"  onclick="editTask(this)"></i> 
-        <i class="fa-solid fa-trash delete-icon" style="color: #1f5a29;"  onclick="deleteTask(this)"></i>`;
+        <i class="fa-solid fa-trash delete-icon" style="color: #1f5a29;"  onclick="deleteTask(this)"></i>
+        <i class="fa-solid fa-star star-icon" style="color: gray;"  onclick="toggleFavorite(this)"></i>`;
         taskList.appendChild(li);
 
 
@@ -37,6 +55,43 @@ function addTask() {
 
 
 //----------------------------------------------------
+
+// Função para alternar entre favoritar e não favoritar a tarefa
+function toggleFavorite(starIcon) {
+    const li = starIcon.parentElement;
+    li.classList.toggle('favorite');
+    if (li.classList.contains('favorite')) {
+        starIcon.style.color = "#1f5a29";
+        addFavoriteText(li);
+    } else {
+        starIcon.style.color = 'gray';
+        removeFavoriteText(li);
+    }
+
+    // Salvar no localStorage com base nas classes "favorite"
+    saveTasksToLocalStorage();
+}
+
+
+// Função para adicionar o texto "(fav)" ao texto da tarefa
+function addFavoriteText(li) {
+    const span = li.querySelector("span");
+    if (span) {
+        span.innerText = span.innerText.replace(" (fav)", "") + " (fav)";
+    }
+}
+
+// Função para remover o texto "(fav)" do texto da tarefa
+function removeFavoriteText(li) {
+    const span = li.querySelector("span");
+    if (span) {
+        span.innerText = span.innerText.replace(" (fav)", "");
+    }
+}
+
+//--------------------------------------------------------------------------
+
+
 
 
 // Função para editar uma tarefa
@@ -66,9 +121,22 @@ function editTask(editIcon) {
 // Função para excluir uma tarefa
 function deleteTask(deleteIcon) {
     const li = deleteIcon.parentElement;
+    const span = li.querySelector("span");
+
+    // Verifica se a tarefa está favoritada no momento da exclusão
+    const isFavorite = span.innerText.includes("(fav)");
+
+    // Confirmação de exclusão com base na condição de favoritar
+    if (isFavorite) {
+        const confirmDelete = confirm("Esta tarefa está favoritada. Deseja realmente deletá-la?");
+        if (!confirmDelete) {
+            return; // Se o usuário não confirmar, não exclua a tarefa.
+        }
+    }
+
     li.remove();
 
-    //Reproduzir som ao deletar
+    // Reproduzir som ao deletar
     const audio3 = document.querySelector('#som3');
     audio3.play();
 
@@ -83,25 +151,65 @@ function toggleTaskDone(task) {
     const spanElement = task.querySelector("span");
     if (spanElement && event.target === spanElement) {
         spanElement.classList.toggle("task-done");
+
+
+        // Adicionar ou remover o marcador " (concluída)" no texto da tarefa
+        const taskText = spanElement.innerText;
+        if (spanElement.classList.contains("task-done")) {
+            spanElement.innerText = taskText + " (concluída)";
+        } else {
+            spanElement.innerText = taskText.replace(" (concluída)", "");
+        }
+
+        // Salvar no localStorage após alterar estado da tarefa
+        saveTasksToLocalStorage();
+
     }
 
-    // Salvar no localStorage
-    saveTasksToLocalStorage();
 }
+
 
 
 //-------------------------------------------------------
 
 // Função para carregar tarefas do localStorage
 function loadTasksFromLocalStorage() {
+
     const taskList = document.getElementById("taskList");
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
     for (const taskText of tasks) {
         const li = document.createElement("li");
+        const span = document.createElement('span');
+
+
+        // Verifica se a tarefa está marcada como concluída no localStorage
+        if (taskText.endsWith(" (concluída)")) {
+            span.innerText = taskText.replace("(concluida)", ""); // Remove " (concluída)"
+            span.classList.add("task-done");
+        } else {
+            span.innerText = taskText;
+        }
+
+
+        // Verificar se a tarefa está favoritada com base no localStorage
+        const isFavorite = taskText.includes('favorite');
+
+        // Adicionar a classe "favorite" à <li> se a tarefa estiver favoritada
+        if (isFavorite) {
+            li.classList.add('favorite');
+        }
+
+
+
+        li.appendChild(span);
+
+        //Adiciona os ícones a cada nova li/span criada
         li.innerHTML = `<span>${taskText}</span>
         <i class="fa-solid fa-pen-to-square edit-icon" style="color: #1f5a29;"  onclick="editTask(this)"></i> 
-        <i class="fa-solid fa-trash delete-icon" style="color: #1f5a29;"  onclick="deleteTask(this)"></i>`;
+        <i class="fa-solid fa-trash delete-icon" style="color: #1f5a29;"  onclick="deleteTask(this)"></i>
+        <i class="fa-solid fa-star star-icon" style="color: gray;"  onclick="toggleFavorite(this)"></i>`;
+
         taskList.appendChild(li);
 
         li.addEventListener("click", function () {
@@ -109,7 +217,6 @@ function loadTasksFromLocalStorage() {
         });
     }
 }
-
 //----------------------------------------------------------
 
 // Função para salvar tarefas no localStorage
