@@ -174,14 +174,42 @@ function toggleTaskDone(task) {
 
 // Função para carregar tarefas do localStorage
 function loadTasksFromLocalStorage() {
+
     const taskList = document.getElementById("taskList");
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
     for (const taskText of tasks) {
         const li = document.createElement("li");
+        const span = document.createElement('span');
+
+
+        // Verifica se a tarefa está marcada como concluída no localStorage
+        if (taskText.endsWith(" (concluída)")) {
+            span.innerText = taskText.replace("(concluida)", ""); // Remove " (concluída)"
+            span.classList.add("task-done");
+        } else {
+            span.innerText = taskText;
+        }
+
+
+        // Verificar se a tarefa está favoritada com base no localStorage
+        const isFavorite = taskText.includes('favorite');
+
+        // Adicionar a classe "favorite" à <li> se a tarefa estiver favoritada
+        if (isFavorite) {
+            li.classList.add('favorite');
+        }
+
+
+
+        li.appendChild(span);
+
+        //Adiciona os ícones a cada nova li/span criada
         li.innerHTML = `<span>${taskText}</span>
         <i class="fa-solid fa-pen-to-square edit-icon" style="color: #1f5a29;"  onclick="editTask(this)"></i> 
-        <i class="fa-solid fa-trash delete-icon" style="color: #1f5a29;"  onclick="deleteTask(this)"></i>`;
+        <i class="fa-solid fa-trash delete-icon" style="color: #1f5a29;"  onclick="deleteTask(this)"></i>
+        <i class="fa-solid fa-star star-icon" style="color: gray;"  onclick="toggleFavorite(this)"></i>`;
+
         taskList.appendChild(li);
 
         li.addEventListener("click", function () {
@@ -189,7 +217,6 @@ function loadTasksFromLocalStorage() {
         });
     }
 }
-
 //----------------------------------------------------------
 
 // Função para salvar tarefas no localStorage
