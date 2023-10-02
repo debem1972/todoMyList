@@ -32,7 +32,8 @@ function addTask() {
 
         li.innerHTML = `<span>${taskText}</span> 
         <i class="fa-solid fa-pen-to-square edit-icon" style="color: #1f5a29;"  onclick="editTask(this)"></i> 
-        <i class="fa-solid fa-trash delete-icon" style="color: #1f5a29;"  onclick="deleteTask(this)"></i>`;
+        <i class="fa-solid fa-trash delete-icon" style="color: #1f5a29;"  onclick="deleteTask(this)"></i>
+        <i class="fa-solid fa-star star-icon" style="color: gray;"  onclick="toggleFavorite(this)"></i>`;
         taskList.appendChild(li);
 
 
